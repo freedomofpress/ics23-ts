@@ -1,6 +1,6 @@
 {
   "name": "@freedomofpress/ics23",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Merkle proof verification library (ICS23)",
   "main": "build/index.js",
   "types": "build/index.d.ts",
