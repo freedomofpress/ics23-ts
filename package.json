@@ -1,0 +1,46 @@
+{
+  "name": "@freedomofpress/ics23",
+  "version": "0.1.0",
+  "description": "Merkle proof verification library (ICS23)",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freedomofpress/ics23-ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "author": "Giulio B",
+  "license": "Apache-2.0",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "proto:gen": "npx buf generate buf.build/cosmos/ics23",
+    "lint": "npx eslint --ignore-pattern '**/*.test.ts' . --fix && npx prettier --write .",
+    "test": "vitest run",
+    "test:playwright": "vitest run --config vite.config.playwright.ts",
+    "coverage": "vitest run --coverage",
+    "prebuild": "npm run proto:gen",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@bufbuild/buf": "^1.61.0",
+    "@vitest/browser": "^4.0.14",
+    "@vitest/browser-playwright": "^4.0.14",
+    "@vitest/coverage-v8": "^4.0.14",
+    "esbuild": "^0.27.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "playwright": "^1.57.0",
+    "typescript": "^5.0",
+    "typescript-eslint": "^8.48.0",
+    "vite": "^7.2.6",
+    "vite-node": "^5.2.0",
+    "vitest": "^4.0.14"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.0.0"
+  }
+}
