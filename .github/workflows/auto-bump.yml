@@ -21,13 +21,17 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install current dependencies
+        run: npm ci
+
       - name: Install npm-check-updates
         run: npm install -g npm-check-updates
 
       - name: Bump dependencies
-        run: |
-          ncu -u --peer
-          # ncu -u --reject '/^typescript$/'
+        run: ncu -u --peer
+
+      - name: Install updated dependencies
+        run: npm install
 
       - name: Setup Buf
         uses: bufbuild/buf-setup-action@v1
@@ -42,9 +46,6 @@ jobs:
           key: ${{ runner.os }}-buf-${{ hashFiles('buf.yaml', 'buf.gen.yaml', 'buf.lock') }}
           restore-keys: |
             ${{ runner.os }}-buf-
-
-      - name: Install updated deps
-        run: npm install
 
       - name: Generate protobufs
         run: npm run proto:gen
