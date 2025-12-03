@@ -25,9 +25,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-#      The original package has a lot 
-#      - name: Run ESLint
-#        run: npm run lint
+      #      The original package has a lot
+      #      - name: Run ESLint
+      #        run: npm run lint
 
       - name: Setup Buf
         uses: bufbuild/buf-setup-action@v1

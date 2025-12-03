@@ -43,11 +43,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buf-
 
-      - name: Generate protobufs
-        run: npm run proto:gen
-
       - name: Install updated deps
         run: npm install
+
+      - name: Generate protobufs
+        run: npm run proto:gen
 
       - name: Run npm audit fix
         run: npm audit fix || true
