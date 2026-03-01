@@ -12,7 +12,7 @@ async function sha256(preimage: Uint8Array): Promise<Uint8Array> {
     throw new Error("Web Crypto API is not available");
   }
 
-  const digest = await subtle.digest("SHA-256", preimage);
+  const digest = await subtle.digest("SHA-256", new Uint8Array(preimage));
   return new Uint8Array(digest);
 }
 

@@ -42,8 +42,7 @@ const utf8Encoder = new TextEncoder();
 
 const leafPrefix = utf8Encoder.encode("JMT::LeafNode");
 const innerPrefix = utf8Encoder.encode("JMT::IntrnalNode");
-const placeholderMarker =
-  "SPARSE_MERKLE_PLACEHOLDER_HASH__" satisfies string;
+const placeholderMarker = "SPARSE_MERKLE_PLACEHOLDER_HASH__" satisfies string;
 
 export const webcatSpec: ProofSpec = {
   leafSpec: {
@@ -69,7 +68,6 @@ export const webcatSpec: ProofSpec = {
 function decodeProof(hex: string): CommitmentProof {
   return CommitmentProof.decode(fromHex(hex));
 }
-
 
 function placeholderHash(): Uint8Array {
   return utf8Encoder.encode(placeholderMarker);
