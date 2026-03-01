@@ -70,12 +70,9 @@ function decodeProof(hex: string): CommitmentProof {
   return CommitmentProof.decode(fromHex(hex));
 }
 
-async function hashUtf8(message: string): Promise<Uint8Array> {
-  return doHash(HashOp.SHA256, utf8Encoder.encode(message));
-}
 
-async function placeholderHash(): Promise<Uint8Array> {
-  return hashUtf8(placeholderMarker);
+function placeholderHash(): Uint8Array {
+  return utf8Encoder.encode(placeholderMarker);
 }
 
 function canonicalizeKey(key: string): string {
@@ -172,7 +169,7 @@ async function buildJmtRoot(
 async function reconstructCanonicalRoot(
   leaves: readonly (WebcatLeaf | readonly string[])[],
 ): Promise<Uint8Array> {
-  const placeholder = await placeholderHash();
+  const placeholder = placeholderHash();
   if (leaves.length === 0) {
     return placeholder;
   }
