@@ -217,4 +217,19 @@ describe("ensureSpec", () => {
     };
     expect(() => ensureSpec(proof, depthLimitedSpec)).toThrow();
   });
+
+  it("limits proof depth to 128 when maxDepth is zero", () => {
+    const proof: ExistenceProof = {
+      key: toAscii("foo"),
+      value: toAscii("bar"),
+      leaf: validLeaf,
+      path: Array(128).fill(validInner),
+    };
+    const spec = { ...iavlSpec, maxDepth: 0 };
+
+    ensureSpec(proof, spec);
+    expect(() =>
+      ensureSpec({ ...proof, path: [...proof.path!, validInner] }, spec),
+    ).toThrow();
+  });
 });
