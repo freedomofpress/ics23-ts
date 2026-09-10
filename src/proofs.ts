@@ -81,6 +81,8 @@ export const smtSpec: ProofSpec = {
 
 export type CommitmentRoot = Uint8Array;
 
+const DEFAULT_MAX_DEPTH = 128;
+
 export async function keyForComparison(
   spec: ProofSpec,
   key: Uint8Array,
@@ -209,7 +211,8 @@ export function ensureSpec(proof: ExistenceProof, spec: ProofSpec): void {
   if (spec.minDepth && path.length < spec.minDepth) {
     throw new Error(`Too few inner nodes ${path.length}`);
   }
-  if (spec.maxDepth && path.length > spec.maxDepth) {
+  const maxDepth = spec.maxDepth || DEFAULT_MAX_DEPTH;
+  if (path.length > maxDepth) {
     throw new Error(`Too many inner nodes ${path.length}`);
   }
   for (const inner of path) {
