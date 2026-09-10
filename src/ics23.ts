@@ -9,6 +9,15 @@ import {
   ProofSpec,
 } from "./proto/cosmos/ics23/v1/proofs";
 import { bytesBefore, bytesEqual } from "./specs";
+
+async function failClosed(check: () => Promise<boolean>): Promise<boolean> {
+  try {
+    return await check();
+  } catch {
+    return false;
+  }
+}
+
 /*
 This implements the client side functions as specified in
 https://github.com/cosmos/ics/tree/master/spec/ics-023-vector-commitments
@@ -42,17 +51,15 @@ export async function verifyMembership(
   key: Uint8Array,
   value: Uint8Array,
 ): Promise<boolean> {
-  const norm = decompress(proof);
-  const exist = getExistForKey(norm, key);
-  if (!exist) {
-    return false;
-  }
-  try {
+  return failClosed(async () => {
+    const norm = decompress(proof);
+    const exist = getExistForKey(norm, key);
+    if (!exist) {
+      return false;
+    }
     await verifyExistence(exist, spec, root, key, value);
     return true;
-  } catch {
-    return false;
-  }
+  });
 }
 
 /**
@@ -64,17 +71,15 @@ export async function verifyNonMembership(
   root: CommitmentRoot,
   key: Uint8Array,
 ): Promise<boolean> {
-  const norm = decompress(proof);
-  const nonexist = await getNonExistForKey(spec, norm, key);
-  if (!nonexist) {
-    return false;
-  }
-  try {
+  return failClosed(async () => {
+    const norm = decompress(proof);
+    const nonexist = await getNonExistForKey(spec, norm, key);
+    if (!nonexist) {
+      return false;
+    }
     await verifyNonExistence(nonexist, spec, root, key);
     return true;
-  } catch {
-    return false;
-  }
+  });
 }
 
 /**
@@ -86,13 +91,15 @@ export async function batchVerifyMembership(
   root: CommitmentRoot,
   items: Map<Uint8Array, Uint8Array>,
 ): Promise<boolean> {
-  const norm = decompress(proof);
-  for (const [key, value] of items.entries()) {
-    if (!(await verifyMembership(norm, spec, root, key, value))) {
-      return false;
+  return failClosed(async () => {
+    const norm = decompress(proof);
+    for (const [key, value] of items.entries()) {
+      if (!(await verifyMembership(norm, spec, root, key, value))) {
+        return false;
+      }
     }
-  }
-  return true;
+    return true;
+  });
 }
 
 /**
@@ -104,13 +111,15 @@ export async function batchVerifyNonMembership(
   root: CommitmentRoot,
   keys: readonly Uint8Array[],
 ): Promise<boolean> {
-  const norm = decompress(proof);
-  for (const key of keys) {
-    if (!(await verifyNonMembership(norm, spec, root, key))) {
-      return false;
+  return failClosed(async () => {
+    const norm = decompress(proof);
+    for (const key of keys) {
+      if (!(await verifyNonMembership(norm, spec, root, key))) {
+        return false;
+      }
     }
-  }
-  return true;
+    return true;
+  });
 }
 
 function getExistForKey(

@@ -290,3 +290,25 @@ describe("calculateExistenceRoot", () => {
     await validateBatch(proof, smtSpec, data[3]);
   });
 });
+
+describe("malformed compressed proofs", () => {
+  const proof: CommitmentProof = {
+    compressed: {} as NonNullable<CommitmentProof["compressed"]>,
+  };
+  const bytes = new Uint8Array();
+
+  it("returns false from verification functions", async () => {
+    await expect(
+      verifyMembership(proof, iavlSpec, bytes, bytes, bytes),
+    ).resolves.toBe(false);
+    await expect(
+      verifyNonMembership(proof, iavlSpec, bytes, bytes),
+    ).resolves.toBe(false);
+    await expect(
+      batchVerifyMembership(proof, iavlSpec, bytes, new Map([[bytes, bytes]])),
+    ).resolves.toBe(false);
+    await expect(
+      batchVerifyNonMembership(proof, iavlSpec, bytes, [bytes]),
+    ).resolves.toBe(false);
+  });
+});
