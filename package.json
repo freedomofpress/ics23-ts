@@ -2,8 +2,26 @@
   "name": "@freedomofpress/ics23",
   "version": "0.1.4",
   "description": "Merkle proof verification library (ICS23)",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./dist/*.js": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./dist/*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/freedomofpress/ics23-ts"
@@ -15,7 +33,7 @@
   "author": "Giulio B",
   "license": "Apache-2.0",
   "files": [
-    "dist/**"
+    "dist"
   ],
   "scripts": {
     "proto:gen": "npx buf generate buf.build/cosmos/ics23",

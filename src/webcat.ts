@@ -1,12 +1,12 @@
-import { doHash } from "./ops";
-import { verifyExistence } from "./proofs";
+import { doHash } from "./ops.js";
+import { verifyExistence } from "./proofs.js";
 import {
   CommitmentProof,
   HashOp,
   LengthOp,
   ProofSpec,
-} from "./proto/cosmos/ics23/v1/proofs";
-import { bytesEqual } from "./specs";
+} from "./proto/cosmos/ics23/v1/proofs.js";
+import { bytesEqual } from "./specs.js";
 
 export type WebcatLeaf = readonly [string, string];
 

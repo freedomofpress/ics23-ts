@@ -1,5 +1,5 @@
-import { calculateExistenceRoot, ensureSpec, iavlSpec } from "./../proofs";
-import { fromHex, toAscii } from "./testhelpers";
+import { calculateExistenceRoot, ensureSpec, iavlSpec } from "./../proofs.js";
+import { fromHex, toAscii } from "./testhelpers.js";
 import {
   HashOp,
   LengthOp,
@@ -7,7 +7,7 @@ import {
   LeafOp,
   InnerOp,
   ProofSpec,
-} from "./../proto/cosmos/ics23/v1/proofs";
+} from "./../proto/cosmos/ics23/v1/proofs.js";
 import { describe, it, expect } from "vitest";
 
 const leaf = (overrides: Partial<LeafOp>): LeafOp => ({

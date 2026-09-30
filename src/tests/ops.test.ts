@@ -1,11 +1,11 @@
-import { applyInner, applyLeaf, doHash } from "./../ops";
-import { fromHex, toAscii } from "./testhelpers";
+import { applyInner, applyLeaf, doHash } from "./../ops.js";
+import { fromHex, toAscii } from "./testhelpers.js";
 import {
   HashOp,
   LeafOp,
   LengthOp,
   InnerOp,
-} from "./../proto/cosmos/ics23/v1/proofs";
+} from "./../proto/cosmos/ics23/v1/proofs.js";
 import { describe, it, expect } from "vitest";
 
 const leaf = (overrides: Partial<LeafOp>): LeafOp => ({

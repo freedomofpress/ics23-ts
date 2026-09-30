@@ -1,38 +1,38 @@
-import iavlExistLeft from "../../testdata/iavl/exist_left.json";
-import iavlExistMiddle from "../../testdata/iavl/exist_middle.json";
-import iavlExistRight from "../../testdata/iavl/exist_right.json";
-import iavlNonexistLeft from "../../testdata/iavl/nonexist_left.json";
-import iavlNonexistMiddle from "../../testdata/iavl/nonexist_middle.json";
-import iavlNonexistRight from "../../testdata/iavl/nonexist_right.json";
-import smtExistLeft from "../../testdata/smt/exist_left.json";
-import smtExistMiddle from "../../testdata/smt/exist_middle.json";
-import smtExistRight from "../../testdata/smt/exist_right.json";
-import smtNonexistLeft from "../../testdata/smt/nonexist_left.json";
-import smtNonexistMiddle from "../../testdata/smt/nonexist_middle.json";
-import smtNonexistRight from "../../testdata/smt/nonexist_right.json";
-import tendermintExistLeft from "../../testdata/tendermint/exist_left.json";
-import tendermintExistMiddle from "../../testdata/tendermint/exist_middle.json";
-import tendermintExistRight from "../../testdata/tendermint/exist_right.json";
-import tendermintNonexistLeft from "../../testdata/tendermint/nonexist_left.json";
-import tendermintNonexistMiddle from "../../testdata/tendermint/nonexist_middle.json";
-import tendermintNonexistRight from "../../testdata/tendermint/nonexist_right.json";
+import iavlExistLeft from "../../testdata/iavl/exist_left.json" with { type: "json" };
+import iavlExistMiddle from "../../testdata/iavl/exist_middle.json" with { type: "json" };
+import iavlExistRight from "../../testdata/iavl/exist_right.json" with { type: "json" };
+import iavlNonexistLeft from "../../testdata/iavl/nonexist_left.json" with { type: "json" };
+import iavlNonexistMiddle from "../../testdata/iavl/nonexist_middle.json" with { type: "json" };
+import iavlNonexistRight from "../../testdata/iavl/nonexist_right.json" with { type: "json" };
+import smtExistLeft from "../../testdata/smt/exist_left.json" with { type: "json" };
+import smtExistMiddle from "../../testdata/smt/exist_middle.json" with { type: "json" };
+import smtExistRight from "../../testdata/smt/exist_right.json" with { type: "json" };
+import smtNonexistLeft from "../../testdata/smt/nonexist_left.json" with { type: "json" };
+import smtNonexistMiddle from "../../testdata/smt/nonexist_middle.json" with { type: "json" };
+import smtNonexistRight from "../../testdata/smt/nonexist_right.json" with { type: "json" };
+import tendermintExistLeft from "../../testdata/tendermint/exist_left.json" with { type: "json" };
+import tendermintExistMiddle from "../../testdata/tendermint/exist_middle.json" with { type: "json" };
+import tendermintExistRight from "../../testdata/tendermint/exist_right.json" with { type: "json" };
+import tendermintNonexistLeft from "../../testdata/tendermint/nonexist_left.json" with { type: "json" };
+import tendermintNonexistMiddle from "../../testdata/tendermint/nonexist_middle.json" with { type: "json" };
+import tendermintNonexistRight from "../../testdata/tendermint/nonexist_right.json" with { type: "json" };
 
-import { compress } from "./../compress";
+import { compress } from "./../compress.js";
 import {
   batchVerifyMembership,
   batchVerifyNonMembership,
   verifyMembership,
   verifyNonMembership,
-} from "./../ics23";
-import { iavlSpec, smtSpec, tendermintSpec } from "./../proofs";
-import { fromHex } from "./testhelpers";
+} from "./../ics23.js";
+import { iavlSpec, smtSpec, tendermintSpec } from "./../proofs.js";
+import { fromHex } from "./testhelpers.js";
 
 import { describe, it, expect } from "vitest";
 import {
   BatchEntry,
   CommitmentProof,
   ProofSpec,
-} from "./../proto/cosmos/ics23/v1/proofs";
+} from "./../proto/cosmos/ics23/v1/proofs.js";
 
 describe("calculateExistenceRoot", () => {
   interface RefData {
