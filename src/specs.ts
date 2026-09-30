@@ -1,4 +1,4 @@
-import { InnerOp, InnerSpec, LeafOp } from "./proto/cosmos/ics23/v1/proofs";
+import { InnerOp, InnerSpec, LeafOp } from "./proto/cosmos/ics23/v1/proofs.js";
 
 export function ensureLeaf(leaf: LeafOp, spec: LeafOp): void {
   if (leaf.hash !== spec.hash) {

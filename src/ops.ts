@@ -3,7 +3,7 @@ import {
   InnerOp,
   LeafOp,
   LengthOp,
-} from "./proto/cosmos/ics23/v1/proofs";
+} from "./proto/cosmos/ics23/v1/proofs.js";
 
 const subtle = globalThis.crypto?.subtle;
 

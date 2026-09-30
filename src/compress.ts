@@ -6,7 +6,7 @@ import {
   CompressedExistenceProof,
   ExistenceProof,
   InnerOp,
-} from "./proto/cosmos/ics23/v1/proofs";
+} from "./proto/cosmos/ics23/v1/proofs.js";
 
 export function compress(proof: CommitmentProof): CommitmentProof {
   if (!proof.batch) {

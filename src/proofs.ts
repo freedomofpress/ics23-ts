@@ -1,4 +1,4 @@
-import { applyInner, applyLeaf, doHash } from "./ops";
+import { applyInner, applyLeaf, doHash } from "./ops.js";
 import {
   ExistenceProof,
   HashOp,
@@ -7,14 +7,14 @@ import {
   LengthOp,
   NonExistenceProof,
   ProofSpec,
-} from "./proto/cosmos/ics23/v1/proofs";
+} from "./proto/cosmos/ics23/v1/proofs.js";
 import {
   bytesEqual,
   ensureBytesBefore,
   ensureBytesEqual,
   ensureInner,
   ensureLeaf,
-} from "./specs";
+} from "./specs.js";
 
 export const iavlSpec: ProofSpec = {
   leafSpec: {

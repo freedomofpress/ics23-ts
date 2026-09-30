@@ -1,14 +1,18 @@
-import { decompress } from "./compress";
-import { CommitmentRoot, verifyExistence, verifyNonExistence } from "./proofs";
-import { keyForComparison } from "./proofs";
+import { decompress } from "./compress.js";
+import {
+  CommitmentRoot,
+  verifyExistence,
+  verifyNonExistence,
+} from "./proofs.js";
+import { keyForComparison } from "./proofs.js";
 import {
   BatchEntry,
   CommitmentProof,
   ExistenceProof,
   NonExistenceProof,
   ProofSpec,
-} from "./proto/cosmos/ics23/v1/proofs";
-import { bytesBefore, bytesEqual } from "./specs";
+} from "./proto/cosmos/ics23/v1/proofs.js";
+import { bytesBefore, bytesEqual } from "./specs.js";
 
 async function failClosed(check: () => Promise<boolean>): Promise<boolean> {
   try {

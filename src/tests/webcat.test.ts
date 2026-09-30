@@ -1,11 +1,11 @@
-import leavesData from "../../testdata/webcat/leaves.json";
+import leavesData from "../../testdata/webcat/leaves.json" with { type: "json" };
 
 import { describe, expect, it } from "vitest";
 
-import { calculateExistenceRoot } from "../proofs";
-import { verifyWebcatProof, webcatSpec } from "../webcat";
-import { CommitmentProof } from "../proto/cosmos/ics23/v1/proofs";
-import { fromHex, toHex } from "./testhelpers";
+import { calculateExistenceRoot } from "../proofs.js";
+import { verifyWebcatProof, webcatSpec } from "../webcat.js";
+import { CommitmentProof } from "../proto/cosmos/ics23/v1/proofs.js";
+import { fromHex, toHex } from "./testhelpers.js";
 
 describe("verifyWebcatProof", () => {
   it("verifies canonical linkage and reconstruction", async () => {
