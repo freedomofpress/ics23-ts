@@ -1,3 +1,5 @@
+import { hexToUint8Array } from "@freedomofpress/crypto-browser";
+
 import { doHash } from "./ops.js";
 import { verifyExistence } from "./proofs.js";
 import {
@@ -20,22 +22,6 @@ export interface WebcatLeavesFile {
       readonly proof_bytes: readonly string[];
     };
   };
-}
-
-function fromHex(hexstring: string): Uint8Array {
-  if (hexstring.length % 2 !== 0) {
-    throw new Error("hex string length must be a multiple of 2");
-  }
-
-  const listOfInts: number[] = [];
-  for (let i = 0; i < hexstring.length; i += 2) {
-    const hexByteAsString = hexstring.substr(i, 2);
-    if (!hexByteAsString.match(/[0-9a-f]{2}/i)) {
-      throw new Error("hex string contains invalid characters");
-    }
-    listOfInts.push(parseInt(hexByteAsString, 16));
-  }
-  return new Uint8Array(listOfInts);
 }
 
 const utf8Encoder = new TextEncoder();
@@ -66,7 +52,7 @@ export const webcatSpec: ProofSpec = {
 };
 
 function decodeProof(hex: string): CommitmentProof {
-  return CommitmentProof.decode(fromHex(hex));
+  return CommitmentProof.decode(hexToUint8Array(hex));
 }
 
 function placeholderHash(): Uint8Array {
@@ -90,7 +76,7 @@ async function leafHash(key: string, valueHex: string): Promise<Uint8Array> {
     HashOp.SHA256,
     utf8Encoder.encode(canonicalizeKey(key)),
   );
-  const hashedValue = await doHash(HashOp.SHA256, fromHex(valueHex));
+  const hashedValue = await doHash(HashOp.SHA256, hexToUint8Array(valueHex));
   const preimage = new Uint8Array([
     ...leafPrefix,
     ...hashedKey,
@@ -193,9 +179,9 @@ async function verifyCanonicalRootLink(
   await verifyExistence(
     canonicalProof.exist,
     webcatSpec,
-    fromHex(appHashHex),
+    hexToUint8Array(appHashHex),
     utf8Encoder.encode("canonical"),
-    fromHex(canonicalRootHex),
+    hexToUint8Array(canonicalRootHex),
   );
 
   return true;
@@ -209,7 +195,10 @@ export async function verifyWebcatProof(
 
     const reconstructedRoot = await reconstructCanonicalRoot(normalizedLeaves);
     if (
-      !bytesEqual(reconstructedRoot, fromHex(data.proof.canonical_root_hash))
+      !bytesEqual(
+        reconstructedRoot,
+        hexToUint8Array(data.proof.canonical_root_hash),
+      )
     ) {
       return false;
     }

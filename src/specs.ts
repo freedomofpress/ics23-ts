@@ -1,3 +1,5 @@
+import { uint8ArrayEqual } from "@freedomofpress/crypto-browser";
+
 import { InnerOp, InnerSpec, LeafOp } from "./proto/cosmos/ics23/v1/proofs.js";
 
 export function ensureLeaf(leaf: LeafOp, spec: LeafOp): void {
@@ -65,17 +67,7 @@ export function ensureBytesEqual(a: Uint8Array, b: Uint8Array): void {
   }
 }
 
-export function bytesEqual(a: Uint8Array, b: Uint8Array): boolean {
-  if (a.length !== b.length) {
-    return false;
-  }
-  for (let i = 0; i < a.length; i++) {
-    if (a[i] !== b[i]) {
-      return false;
-    }
-  }
-  return true;
-}
+export const bytesEqual = uint8ArrayEqual;
 
 function hasPrefix(
   check?: Uint8Array | null,
