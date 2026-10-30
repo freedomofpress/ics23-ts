@@ -1,3 +1,5 @@
+import { describe, expect, it } from "vitest";
+
 import iavlExistLeft from "../../testdata/iavl/exist_left.json" with { type: "json" };
 import iavlExistMiddle from "../../testdata/iavl/exist_middle.json" with { type: "json" };
 import iavlExistRight from "../../testdata/iavl/exist_right.json" with { type: "json" };
@@ -16,7 +18,6 @@ import tendermintExistRight from "../../testdata/tendermint/exist_right.json" wi
 import tendermintNonexistLeft from "../../testdata/tendermint/nonexist_left.json" with { type: "json" };
 import tendermintNonexistMiddle from "../../testdata/tendermint/nonexist_middle.json" with { type: "json" };
 import tendermintNonexistRight from "../../testdata/tendermint/nonexist_right.json" with { type: "json" };
-
 import { compress } from "./../compress.js";
 import {
   batchVerifyMembership,
@@ -25,14 +26,12 @@ import {
   verifyNonMembership,
 } from "./../ics23.js";
 import { iavlSpec, smtSpec, tendermintSpec } from "./../proofs.js";
-import { fromHex } from "./testhelpers.js";
-
-import { describe, it, expect } from "vitest";
 import {
   BatchEntry,
   CommitmentProof,
   ProofSpec,
 } from "./../proto/cosmos/ics23/v1/proofs.js";
+import { fromHex } from "./testhelpers.js";
 
 describe("calculateExistenceRoot", () => {
   interface RefData {
