@@ -1,4 +1,7 @@
-import { hexToUint8Array } from "@freedomofpress/crypto-browser";
+import {
+  hexToUint8Array,
+  stringToUint8Array,
+} from "@freedomofpress/crypto-browser";
 
 import { doHash } from "./ops.js";
 import { verifyExistence } from "./proofs.js";
@@ -24,10 +27,8 @@ export interface WebcatLeavesFile {
   };
 }
 
-const utf8Encoder = new TextEncoder();
-
-const leafPrefix = utf8Encoder.encode("JMT::LeafNode");
-const innerPrefix = utf8Encoder.encode("JMT::IntrnalNode");
+const leafPrefix = stringToUint8Array("JMT::LeafNode");
+const innerPrefix = stringToUint8Array("JMT::IntrnalNode");
 const placeholderMarker = "SPARSE_MERKLE_PLACEHOLDER_HASH__" satisfies string;
 
 export const webcatSpec: ProofSpec = {
@@ -56,7 +57,7 @@ function decodeProof(hex: string): CommitmentProof {
 }
 
 function placeholderHash(): Uint8Array {
-  return utf8Encoder.encode(placeholderMarker);
+  return stringToUint8Array(placeholderMarker);
 }
 
 function canonicalizeKey(key: string): string {
@@ -74,7 +75,7 @@ function normalizeLeaf(leaf: WebcatLeaf | readonly string[]): WebcatLeaf {
 async function leafHash(key: string, valueHex: string): Promise<Uint8Array> {
   const hashedKey = await doHash(
     HashOp.SHA256,
-    utf8Encoder.encode(canonicalizeKey(key)),
+    stringToUint8Array(canonicalizeKey(key)),
   );
   const hashedValue = await doHash(HashOp.SHA256, hexToUint8Array(valueHex));
   const preimage = new Uint8Array([
@@ -112,7 +113,7 @@ async function prepareLeaves(
   for (const [key, valueHex] of leaves) {
     const keyHash = await doHash(
       HashOp.SHA256,
-      utf8Encoder.encode(canonicalizeKey(key)),
+      stringToUint8Array(canonicalizeKey(key)),
     );
     const nodeHash = await leafHash(key, valueHex);
     prepared.push({ keyHash, nodeHash });
@@ -180,7 +181,7 @@ async function verifyCanonicalRootLink(
     canonicalProof.exist,
     webcatSpec,
     hexToUint8Array(appHashHex),
-    utf8Encoder.encode("canonical"),
+    stringToUint8Array("canonical"),
     hexToUint8Array(canonicalRootHex),
   );
 
