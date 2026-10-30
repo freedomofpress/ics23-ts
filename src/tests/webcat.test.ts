@@ -1,10 +1,9 @@
-import leavesData from "../../testdata/webcat/leaves.json" with { type: "json" };
-
 import { describe, expect, it } from "vitest";
 
+import leavesData from "../../testdata/webcat/leaves.json" with { type: "json" };
 import { calculateExistenceRoot } from "../proofs.js";
-import { verifyWebcatProof, webcatSpec } from "../webcat.js";
 import { CommitmentProof } from "../proto/cosmos/ics23/v1/proofs.js";
+import { verifyWebcatProof, webcatSpec } from "../webcat.js";
 import { fromHex, toHex } from "./testhelpers.js";
 
 describe("verifyWebcatProof", () => {
