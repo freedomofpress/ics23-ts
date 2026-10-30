@@ -1,20 +1,11 @@
+import { sha256 } from "@freedomofpress/crypto-browser";
+
 import {
   HashOp,
   InnerOp,
   LeafOp,
   LengthOp,
 } from "./proto/cosmos/ics23/v1/proofs.js";
-
-const subtle = globalThis.crypto?.subtle;
-
-async function sha256(preimage: Uint8Array): Promise<Uint8Array> {
-  if (!subtle) {
-    throw new Error("Web Crypto API is not available");
-  }
-
-  const digest = await subtle.digest("SHA-256", new Uint8Array(preimage));
-  return new Uint8Array(digest);
-}
 
 export async function applyLeaf(
   leaf: LeafOp,
