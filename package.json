@@ -1,6 +1,6 @@
 {
   "name": "@freedomofpress/ics23",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Merkle proof verification library (ICS23)",
   "type": "module",
   "sideEffects": false,
