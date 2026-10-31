@@ -1,6 +1,6 @@
 {
   "name": "@freedomofpress/ics23",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Merkle proof verification library (ICS23)",
   "type": "module",
   "sideEffects": false,
@@ -62,6 +62,6 @@
   },
   "dependencies": {
     "@bufbuild/protobuf": "^2.14.1",
-    "@freedomofpress/crypto-browser": "^0.2.2"
+    "@freedomofpress/crypto-browser": "^0.3.0"
   }
 }
